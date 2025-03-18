@@ -37,14 +37,14 @@ public class EmployeeBook {
 
     public void printEmployee() {
         System.out.println("\nСписов всех сотрудников");
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             System.out.println(i);
         }
     }
 
     public void printEmployee(int department) {
         System.out.println("\nСписов сотрудников отдела " + department);
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 System.out.println(i);
             }
@@ -53,7 +53,7 @@ public class EmployeeBook {
 
     public void sumSalary() {
         int sum = 0;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             sum += i.getSalary();
         }
         System.out.println("Сумма затрат на ЗП на всех сотрудников: " + sum + " $");
@@ -61,7 +61,7 @@ public class EmployeeBook {
 
     public void sumSalary(int department) {
         int sum = 0;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 sum += i.getSalary();
             }
@@ -104,18 +104,17 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
-        int tmpRemove=0;
+        int tmpRemove = 0;
         for (int i = 0; i < employees.size(); ++i) {
             if (this.employees.get(i).getId() == id) {
                 System.out.println("Сотрудник: " + employees.get(i).getFullName() + " был удалён из базы данных.");
-                tmpRemove=i;
+                tmpRemove = i;
                 check = true;
             }
         }
         if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
-        }
-        else{
+        } else {
             employees.remove(tmpRemove);
         }
     }
@@ -126,7 +125,7 @@ public class EmployeeBook {
 
     public void middleSalary() {
         int sum = 0;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             sum += i.getSalary();
         }
         if (sum != 0) {
@@ -139,7 +138,7 @@ public class EmployeeBook {
 
     public void middleSalary(int department) {
         int sum = 0;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 sum += i.getSalary();
             }
@@ -166,7 +165,7 @@ public class EmployeeBook {
     public void minSalary(int department) {
         int tmp = 0;
         ArrayList<Employee> employees1 = new ArrayList<>();
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 employees1.add(i);
             }
@@ -200,7 +199,7 @@ public class EmployeeBook {
     public void maxSalary(int department) {
         int tmp = 0;
         ArrayList<Employee> employees1 = new ArrayList<>();
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 employees1.add(i);
             }
@@ -224,7 +223,7 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (id == i.getId()) {
                 System.out.println(i);
                 check = true;
@@ -236,7 +235,7 @@ public class EmployeeBook {
     }
 
     public void indexing(int ind) {
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             int tmp = i.getSalary();
             i.indexing(ind);
             System.out.println("Индексация для " + i.getFullName() +
@@ -247,7 +246,7 @@ public class EmployeeBook {
 
     public void indexing(int ind, int department) {
         boolean check = false;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getDepartment() == department) {
                 int tmp = i.getSalary();
                 i.indexing(ind);
@@ -268,7 +267,7 @@ public class EmployeeBook {
         System.out.print("Введите уровень ЗП для поиска:");
         int tmp = fail(1, 200000);
         System.out.println("Список сотрудников с ЗП больше или равной указанной");
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getSalary() >= tmp) {
                 System.out.println(i);
                 check = true;
@@ -286,7 +285,7 @@ public class EmployeeBook {
         System.out.print("Введите уровень ЗП для поиска:");
         int tmp = fail(1, 200000);
         System.out.println("Список сотрудников с ЗП меньше указанной");
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (i.getSalary() < tmp) {
                 System.out.println(i);
                 check = true;
@@ -348,7 +347,7 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
-        for (Employee i:employees) {
+        for (Employee i : employees) {
             if (id == i.getId()) {
                 System.out.println("Сотрудник с номером id " + id + " это: " + i.getFullName() +
                         " HashCode: " + i.hashCode());
