@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EmployeeBook {
-    private ArrayList<Employee> employees = new ArrayList();
+    private final ArrayList<Employee> employees = new ArrayList<>();
     private int count = 0;
 
     public int fail(int a, int b) {
@@ -12,10 +12,11 @@ public class EmployeeBook {
         while (true) {
             try {
                 int n = scanner.nextInt();
-                if (n >= a && n <= b)
+                if (n >= a && n <= b) {
                     return n;
-                else
+                } else {
                     System.out.println("Введите корректное значение!");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Введите корректное значение!");
             }
@@ -27,65 +28,75 @@ public class EmployeeBook {
             Scanner scanner = new Scanner(System.in);
             if (!tmp.isEmpty()) {
                 return tmp;
-            } else
+            } else {
                 System.out.println("Введите хоть что-то");
+            }
             tmp = scanner.nextLine();
         }
     }
 
     public void printEmployee() {
         System.out.println("\nСписов всех сотрудников");
-        for (int i = 0; i < employees.size(); ++i) {
-            System.out.println(employees.get(i));
+        for (Employee i:employees) {
+            System.out.println(i);
         }
     }
 
     public void printEmployee(int department) {
         System.out.println("\nСписов сотрудников отдела " + department);
-        for (int i = 0; i < employees.size(); ++i) {
-            if (employees.get(i).getDepartment() == department)
-                System.out.println(employees.get(i));
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                System.out.println(i);
+            }
         }
     }
 
     public void sumSalary() {
         int sum = 0;
-        for (int i = 0; i < employees.size(); ++i) {
-            sum += employees.get(i).getSalary();
+        for (Employee i:employees) {
+            sum += i.getSalary();
         }
         System.out.println("Сумма затрат на ЗП на всех сотрудников: " + sum + " $");
     }
 
     public void sumSalary(int department) {
         int sum = 0;
-        for (int i = 0; i < employees.size(); ++i) {
-            if (employees.get(i).getDepartment() == department)
-                sum += employees.get(i).getSalary();
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                sum += i.getSalary();
+            }
         }
-        if (sum != 0)
+        if (sum != 0) {
             System.out.println("Сумма затрат на ЗП на сотрудников из " + department + " отдела: " + sum + " $");
-        else
+        } else {
             System.out.println("В базе не хватает сотрудников");
+        }
     }
 
     public void add() {
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Введите имя: ");
         String name = scanner.nextLine();
         name = fail(name);
+
         System.out.print("Введите фамилию: ");
         String surname = scanner.nextLine();
         surname = fail(surname);
+
         System.out.print("Введите отчество: ");
         String fathername = scanner.nextLine();
         fathername = fail(fathername);
+
         int id = count++;
+
         System.out.print("Введите ЗП: ");
         int salary = fail(1, 200000);
+
         System.out.println("Введите отдел");
         int department = fail(1, 5);
-        Employee employee = new Employee(id, surname, name, fathername, salary, department);
 
+        Employee employee = new Employee(id, surname, name, fathername, salary, department);
         this.employees.add(employee);
     }
 
@@ -93,15 +104,20 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
+        int tmpRemove=0;
         for (int i = 0; i < employees.size(); ++i) {
             if (this.employees.get(i).getId() == id) {
                 System.out.println("Сотрудник: " + employees.get(i).getFullName() + " был удалён из базы данных.");
-                employees.remove(i);
+                tmpRemove=i;
                 check = true;
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
+        }
+        else{
+            employees.remove(tmpRemove);
+        }
     }
 
     public int getSize() {
@@ -110,65 +126,72 @@ public class EmployeeBook {
 
     public void middleSalary() {
         int sum = 0;
-        for (int i = 0; i < employees.size(); ++i) {
-            sum += employees.get(i).getSalary();
+        for (Employee i:employees) {
+            sum += i.getSalary();
         }
-        if (sum != 0)
+        if (sum != 0) {
             System.out.println("Среднее значение ЗП среди всех сотрудников: " + sum / employees.size() + " $");
-        else
+        } else {
             System.out.println("В базе не хватает сотрудников");
+        }
 
     }
 
     public void middleSalary(int department) {
         int sum = 0;
-        for (int i = 0; i < employees.size(); ++i) {
-            if (employees.get(i).getDepartment() == department)
-                sum += employees.get(i).getSalary();
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                sum += i.getSalary();
+            }
         }
-        if (sum != 0)
+        if (sum != 0) {
             System.out.println("Среднее значение ЗП среди сотрудников " + department + " отдела: " +
                     sum / employees.size() + " $");
-        else
+        } else {
             System.out.println("В базе не хватает сотрудников");
+        }
 
     }
 
     public void minSalary() {
         int tmp = 0;
         for (int i = 1; i < employees.size(); i++) {
-            if (employees.get(i).getSalary() < employees.get(tmp).getSalary())
+            if (employees.get(i).getSalary() < employees.get(tmp).getSalary()) {
                 tmp = i;
+            }
         }
         System.out.println("Самая маленькая ЗП среди всех сотрудников у " + employees.get(tmp).getFullName());
-
     }
 
     public void minSalary(int department) {
         int tmp = 0;
-        ArrayList<Employee> employees1 = new ArrayList<Employee>();
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getDepartment() == department)
-                employees1.add(employees.get(i));
+        ArrayList<Employee> employees1 = new ArrayList<>();
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                employees1.add(i);
+            }
 
         }
         if (!employees1.isEmpty()) {
             for (int i = 1; i < employees1.size(); i++) {
-                if (employees1.get(i).getSalary() < employees1.get(tmp).getSalary())
+                if (employees1.get(i).getSalary() < employees1.get(tmp).getSalary()) {
                     tmp = i;
+                }
             }
             System.out.println("Самая маленькая ЗП среди сотрудников " + department + " отдела у " +
                     employees.get(tmp).getFullName());
-        } else
+        } else {
             System.out.println("В базе не хватает сотрудников");
+        }
 
     }
 
     public void maxSalary() {
         int tmp = 0;
         for (int i = 1; i < employees.size(); i++) {
-            if (employees.get(i).getSalary() > employees.get(tmp).getSalary())
+            if (employees.get(i).getSalary() > employees.get(tmp).getSalary()) {
                 tmp = i;
+            }
         }
         System.out.println("Самая большая ЗП среди всех сотрудников у " + employees.get(tmp).getFullName());
 
@@ -176,21 +199,24 @@ public class EmployeeBook {
 
     public void maxSalary(int department) {
         int tmp = 0;
-        ArrayList<Employee> employees1 = new ArrayList<Employee>();
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getDepartment() == department)
-                employees1.add(employees.get(i));
+        ArrayList<Employee> employees1 = new ArrayList<>();
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                employees1.add(i);
+            }
 
         }
         if (!employees1.isEmpty()) {
             for (int i = 1; i < employees1.size(); i++) {
-                if (employees1.get(i).getSalary() > employees1.get(tmp).getSalary())
+                if (employees1.get(i).getSalary() > employees1.get(tmp).getSalary()) {
                     tmp = i;
+                }
             }
             System.out.println("Самая большая ЗП среди сотрудников " + department + " отдела у " +
                     employees.get(tmp).getFullName());
-        } else
+        } else {
             System.out.println("В базе не хватает сотрудников");
+        }
 
     }
 
@@ -198,41 +224,43 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
-        for (int i = 0; i < employees.size(); i++) {
-            if (id == employees.get(i).getId()) {
-                System.out.println(employees.get(i));
+        for (Employee i:employees) {
+            if (id == i.getId()) {
+                System.out.println(i);
                 check = true;
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
+        }
     }
 
     public void indexing(int ind) {
-        for (int i = 0; i < employees.size(); i++) {
-            int tmp = employees.get(i).getSalary();
-            employees.get(i).indexing(ind);
-            System.out.println("Индексация для " + employees.get(i).getFullName() +
-                    " произведена успешно, и теперь ЗП составляет: " + employees.get(i).getSalary());
+        for (Employee i:employees) {
+            int tmp = i.getSalary();
+            i.indexing(ind);
+            System.out.println("Индексация для " + i.getFullName() +
+                    " произведена успешно, и теперь ЗП составляет: " + i.getSalary());
             System.out.println("Было: " + tmp);
         }
     }
 
     public void indexing(int ind, int department) {
         boolean check = false;
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getDepartment() == department) {
-                int tmp = employees.get(i).getSalary();
-                employees.get(i).indexing(ind);
-                System.out.println("Индексация для " + employees.get(i).getFullName() +
-                        " произведена успешно, и теперь ЗП составляет: " + employees.get(i).getSalary());
+        for (Employee i:employees) {
+            if (i.getDepartment() == department) {
+                int tmp = i.getSalary();
+                i.indexing(ind);
+                System.out.println("Индексация для " + i.getFullName() +
+                        " произведена успешно, и теперь ЗП составляет: " + i.getSalary());
                 System.out.println("Было: " + tmp);
                 check = true;
             }
 
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе не хватает сотрудников");
+        }
     }
 
     public void searchPlus() {
@@ -240,15 +268,16 @@ public class EmployeeBook {
         System.out.print("Введите уровень ЗП для поиска:");
         int tmp = fail(1, 200000);
         System.out.println("Список сотрудников с ЗП больше или равной указанной");
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getSalary() >= tmp) {
-                System.out.println(employees.get(i));
+        for (Employee i:employees) {
+            if (i.getSalary() >= tmp) {
+                System.out.println(i);
                 check = true;
 
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе отсутствуют сотрудники с таким уровнем ЗП");
+        }
 
     }
 
@@ -257,15 +286,15 @@ public class EmployeeBook {
         System.out.print("Введите уровень ЗП для поиска:");
         int tmp = fail(1, 200000);
         System.out.println("Список сотрудников с ЗП меньше указанной");
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getSalary() < tmp) {
-                System.out.println(employees.get(i));
+        for (Employee i:employees) {
+            if (i.getSalary() < tmp) {
+                System.out.println(i);
                 check = true;
-
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе отсутствуют сотрудники с таким уровнем ЗП");
+        }
 
     }
 
@@ -282,9 +311,9 @@ public class EmployeeBook {
                 check = true;
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
-        else {
+        } else {
             System.out.print("Введите ЗП: ");
             int salary = fail(1, 200000);
             employees.get(tmp).setSalary(salary);
@@ -305,9 +334,9 @@ public class EmployeeBook {
                 check = true;
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
-        else {
+        } else {
             System.out.print("Введите отдел: ");
             int department = fail(1, 5);
             employees.get(tmp).setDepartment(department);
@@ -319,15 +348,16 @@ public class EmployeeBook {
         System.out.println("Введите id сотрудника: ");
         int id = fail(0, 200);
         boolean check = false;
-        for (int i = 0; i < employees.size(); i++) {
-            if (id == employees.get(i).getId()) {
-                System.out.println("Сотрудник с номером id " + id + " это: " + employees.get(i).getFullName() +
-                        " HashCode: " + employees.get(i).hashCode());
+        for (Employee i:employees) {
+            if (id == i.getId()) {
+                System.out.println("Сотрудник с номером id " + id + " это: " + i.getFullName() +
+                        " HashCode: " + i.hashCode());
                 check = true;
             }
         }
-        if (!check)
+        if (!check) {
             System.out.println("В базе нет сотрудника с таким ID");
+        }
     }
 
     public void equalsEmployee() {
@@ -363,9 +393,10 @@ public class EmployeeBook {
             System.out.println("В базе нет сотрудника с таким ID");
             return;
         }
-        if (employees.get(tmp1).equals(employees.get(tmp2)))
+        if (employees.get(tmp1).equals(employees.get(tmp2))) {
             System.out.println("Люди под этими ID равны");
-        else
+        } else {
             System.out.println("Люди под этими ID не равны");
+        }
     }
 }

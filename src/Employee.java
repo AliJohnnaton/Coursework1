@@ -19,7 +19,9 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Employee employee = (Employee) o;
         return salary == employee.salary && department == employee.department && Objects.equals(name, employee.name)
                 && Objects.equals(surname, employee.surname) && Objects.equals(fathername, employee.fathername);
@@ -65,8 +67,7 @@ public class Employee {
     }
 
     public void indexing(int ind) {
-        double tmp = (this.salary / 100) * ind;
-
+        double tmp = (double) (this.salary / 100) * ind;
         this.salary += (int) tmp;
     }
 
