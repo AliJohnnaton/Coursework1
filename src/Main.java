@@ -1,167 +1,9 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 public class Main {
-    public static int fail(int a, int b) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("\nВведите число от " + a + " до " + b + ": ");
-        while (true) {
-            try {
-                int n = scanner.nextInt();
-                if (n >= a && n <= b) {
-                    return n;
-                } else {
-                    System.out.println("Введите корректное значение!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Введите корректное значение!");
-            }
-        }
-    }
-
-    public static void bookPrint(EmployeeBook book) {
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.printEmployee();
-                break;
-            }
-            case 2: {
-                System.out.println("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.printEmployee(dep);
-                break;
-            }
-        }
-    }
-
-    public static void sumPrint(EmployeeBook book) {
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.sumSalary();
-                break;
-            }
-            case 2: {
-                System.out.println("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.sumSalary(dep);
-                break;
-            }
-        }
-    }
-
-    public static void minPrint(EmployeeBook book) {
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.minSalary();
-                break;
-            }
-            case 2: {
-                System.out.println("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.minSalary(dep);
-                break;
-            }
-        }
-    }
-
-    public static void maxPrint(EmployeeBook book) {
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.maxSalary();
-                break;
-            }
-            case 2: {
-                System.out.println("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.maxSalary(dep);
-                break;
-            }
-        }
-    }
-
-    public static void middlePrint(EmployeeBook book) {
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.middleSalary();
-                break;
-            }
-            case 2: {
-                System.out.println("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.middleSalary(dep);
-                break;
-            }
-        }
-    }
-
-    public static void indexPrint(EmployeeBook book) {
-        System.out.print("\nВведите процент индексации: ");
-        int ind = fail(0, 100);
-        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
-        int tmp = fail(1, 2);
-        switch (tmp) {
-            case 1: {
-                book.indexing(ind);
-                break;
-            }
-            case 2: {
-                System.out.print("Введите отдел: ");
-                int dep = fail(1, 5);
-                book.indexing(ind, dep);
-                break;
-            }
-        }
-    }
-
-    public static void editEmployee(EmployeeBook book) {
-        System.out.println();
-        System.out.println("Выберите действие:");
-        System.out.println("1) Изменить отдел сотрудника");
-        System.out.println("2) Изменить ЗП сотрудника");
-        System.out.println("3) Вывести HashCode сотрудника");
-        System.out.println("4) Вывести все данные по сотруднику");
-        System.out.println("5) Сравнить двух сотрудников (equals)");
-        int tmp = fail(1, 6);
-        if ((tmp > 0 && tmp <= 6) && book.getSize() == 0) {
-            System.out.println("В базе не хватает сотрудников!");
-        } else {
-            switch (tmp) {
-                case 1: {
-                    book.editDepartment();
-                    break;
-                }
-                case 2: {
-                    book.editSalary();
-                    break;
-                }
-                case 3: {
-                    book.getHashCode();
-                    break;
-                }
-                case 4: {
-                    book.getEmployee();
-                    break;
-                }
-                case 5: {
-                    book.equalsEmployee();
-                    break;
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         EmployeeBook book = new EmployeeBook();
         while (true) {
             System.out.println();
@@ -177,10 +19,10 @@ public class Main {
             System.out.println("9) Произвести индексацию ЗП в %");
             System.out.println("10) Вывести список сотрудников, у которых ЗП больше или равна указаной");
             System.out.println("11) Вывести список сотрудников, у которых ЗП меньше указаной");
-            System.out.println("12) Редактировать сотрудника по ID");
+            System.out.println("12) Сравнить двух сотрудников");
             System.out.println("0) Выход");
-            int tmp = fail(0, 12);
-            if ((tmp > 1 && tmp <= 12) && book.getSize() == 0) {
+            int tmp = book.checkValidationInt(0, 12);
+            if ((tmp > 1 && tmp <= 12) && book.numberOfEmployees() == 0) {
                 System.out.println("В базе не хватает сотрудников!");
             } else {
                 switch (tmp) {
@@ -188,11 +30,37 @@ public class Main {
                         System.exit(0);
                     }
                     case 1: {
-                        book.add();
+                        System.out.print("Введите имя: ");
+                        String name = scanner.nextLine();
+                        name = book.checkValidationString(name);
+
+                        System.out.print("Введите фамилию: ");
+                        String surname = scanner.nextLine();
+                        surname = book.checkValidationString(surname);
+
+                        System.out.print("Введите отчество: ");
+                        String fathername = scanner.nextLine();
+                        fathername = book.checkValidationString(fathername);
+
+                        System.out.print("Введите ЗП: ");
+                        int salary = book.checkValidationInt(1, 200000);
+
+                        System.out.println("Введите отдел");
+                        int department = book.checkValidationInt(1, 5);
+
+                        Employee employee = new Employee(surname, name, fathername, salary, department);
+                        if (book.addEmployee(employee)) {
+                            System.out.println("Сотрудник успешно добавлен");
+                        } else {
+                            System.out.println("В этом отделе нет места");
+                        }
                         break;
                     }
                     case 2: {
-                        book.remove();
+                        System.out.println("Введите id сотрудника: ");
+                        int id = book.checkValidationID();
+                        book.removeEmployee(id);
+                        System.out.println("Сотрудник был удалён из базы данных");
                         break;
                     }
                     case 3: {
@@ -212,11 +80,17 @@ public class Main {
                         break;
                     }
                     case 7: {
-                        middlePrint(book);
+                        averagePrint(book);
                         break;
                     }
                     case 8: {
-                        book.getEmployee();
+                        System.out.println("Введите id сотрудника: ");
+                        int id = book.checkValidationID();
+                        if (book.getEmployee(id) != null) {
+                            System.out.println(book.getEmployee(id));
+                        } else {
+                            System.out.println("В базе нет сотрудника с таким ID");
+                        }
                         break;
                     }
                     case 9: {
@@ -224,18 +98,167 @@ public class Main {
                         break;
                     }
                     case 10: {
-                        book.searchPlus();
+                        System.out.print("Введите уровень ЗП для поиска:");
+                        int salary = book.checkValidationInt(1, 200000);
+                        System.out.println("Список сотрудников с ЗП больше или равной указанной");
+                        book.printEmployeesWithSalaryAbove(salary);
                         break;
                     }
                     case 11: {
-                        book.searchMinus();
+                        System.out.print("Введите уровень ЗП для поиска:");
+                        int salary = book.checkValidationInt(1, 200000);
+                        System.out.println("Список сотрудников с ЗП меньше указанной");
+                        book.printEmployeesWithSalaryBelow(salary);
                         break;
                     }
                     case 12: {
-                        editEmployee(book);
-                        break;
+                        System.out.println("Введите id первого сотрудника: ");
+                        int firstID = book.checkValidationID();
+                        Employee firstEmployee;
+                        if (book.getEmployee(firstID) != null) {
+                            System.out.println(book.getEmployee(firstID));
+                            firstEmployee = book.getEmployee(firstID);
+                        } else {
+                            System.out.println("В базе нет сотрудника с таким ID");
+                            break;
+                        }
+                        System.out.println("Введите id второго сотрудника: ");
+                        int secondID = book.checkValidationID();
+                        Employee secondEmployee;
+                        if (book.getEmployee(secondID) != null) {
+                            System.out.println(book.getEmployee(secondID));
+                            secondEmployee = book.getEmployee(secondID);
+                        } else {
+                            System.out.println("В базе нет сотрудника с таким ID");
+                            break;
+                        }
+                        if (book.equalsEmployee(firstEmployee, secondEmployee)) {
+                            System.out.println("Люди под этими ID равны");
+                        } else {
+                            System.out.println("Люди под этими ID не равны");
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    public static void bookPrint(EmployeeBook book) {
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                book.printAllEmployees();
+                break;
+            }
+            case 2: {
+                System.out.println("Введите отдел: ");
+                int dep = book.checkValidationInt(1, 5);
+                book.printEmployeesByDepartment(dep);
+                break;
+            }
+        }
+    }
+
+    public static void sumPrint(EmployeeBook book) {
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                System.out.println("Сумма затрат на ЗП на всех сотрудников: " + book.sumSalary() + " $");
+                break;
+            }
+            case 2: {
+                System.out.println("Введите отдел: ");
+                int department = book.checkValidationInt(1, 5);
+                if (book.numberOfEmployeesByDepartment(department) != 0) {
+                    System.out.println("Сумма затрат на ЗП на сотрудников из " + department + " отдела: " +
+                            book.sumSalaryByDepartment(department) + " $");
+                } else {
+                    System.out.println("В " + department + " офисе критически мало сотрудников");
+                }
+                break;
+            }
+        }
+    }
+
+    public static void minPrint(EmployeeBook book) {
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                System.out.println("Самая маленькая ЗП среди всех сотрудников у " + book.minSalary());
+                break;
+            }
+            case 2: {
+                System.out.println("Введите отдел: ");
+                int department = book.checkValidationInt(1, 5);
+                if (book.numberOfEmployeesByDepartment(department) != 0) {
+                    System.out.println("Самая маленькая ЗП среди сотрудников" + department +
+                            " отдела у " + book.minSalaryByDepartment(department));
+                } else {
+                    System.out.println("В " + department + " офисе критически мало сотрудников");
+                }
+                break;
+            }
+        }
+    }
+
+    public static void maxPrint(EmployeeBook book) {
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                System.out.println("Самая большая ЗП среди всех сотрудников у " + book.maxSalary());
+                break;
+            }
+            case 2: {
+                System.out.println("Введите отдел: ");
+                int department = book.checkValidationInt(1, 5);
+                if (book.numberOfEmployeesByDepartment(department) != 0) {
+                    System.out.println("Самая маленькая ЗП среди сотрудников" + department +
+                            " отдела у " + book.maxSalaryByDepartment(department));
+                } else {
+                    System.out.println("В " + department + " офисе критически мало сотрудников");
+                }
+                break;
+            }
+        }
+    }
+
+    public static void averagePrint(EmployeeBook book) {
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                System.out.println("Среднее значение ЗП среди всех сотрудников: " + book.averageSalary() + " $");
+                break;
+            }
+            case 2: {
+                System.out.println("Введите отдел: ");
+                int department = book.checkValidationInt(1, 5);
+                System.out.println("Среднее значение ЗП среди сотрудников" + department + " отдела: " +
+                        book.averageSalaryByDepartment(department) + " $");
+                break;
+            }
+        }
+    }
+
+    public static void indexPrint(EmployeeBook book) {
+        System.out.print("\nВведите процент индексации: ");
+        int percent = book.checkValidationInt(0, 100);
+        System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
+        int tmp = book.checkValidationInt(1, 2);
+        switch (tmp) {
+            case 1: {
+                book.indexSalaries(percent);
+                break;
+            }
+            case 2: {
+                System.out.print("Введите отдел: ");
+                int dep = book.checkValidationInt(1, 5);
+                book.indexSalariesByDepartment(percent, dep);
+                break;
             }
         }
     }
