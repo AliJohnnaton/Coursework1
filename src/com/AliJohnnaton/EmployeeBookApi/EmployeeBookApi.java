@@ -148,7 +148,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void bookPrint(EmployeeBook book) {
+    static void bookPrint(EmployeeBook book) {
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
         int tmp = book.checkValidationInt(1, 2);
         switch (tmp) {
@@ -165,7 +165,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void sumPrint(EmployeeBook book) {
+    static void sumPrint(EmployeeBook book) {
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
         int tmp = book.checkValidationInt(1, 2);
         switch (tmp) {
@@ -187,7 +187,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void minPrint(EmployeeBook book) {
+    static void minPrint(EmployeeBook book) {
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
         int tmp = book.checkValidationInt(1, 2);
         switch (tmp) {
@@ -209,7 +209,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void maxPrint(EmployeeBook book) {
+    static void maxPrint(EmployeeBook book) {
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
         int tmp = book.checkValidationInt(1, 2);
         switch (tmp) {
@@ -231,7 +231,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void averagePrint(EmployeeBook book) {
+    static void averagePrint(EmployeeBook book) {
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
         int tmp = book.checkValidationInt(1, 2);
         switch (tmp) {
@@ -249,7 +249,7 @@ public class EmployeeBookApi {
         }
     }
 
-    public static void indexPrint(EmployeeBook book) {
+    static void indexPrint(EmployeeBook book) {
         System.out.print("\nВведите процент индексации: ");
         int percent = book.checkValidationInt(0, 100);
         System.out.println("\nПроизвести операцию на всех или на конкретный отдел?\n1) Все\n2) На отдел");
